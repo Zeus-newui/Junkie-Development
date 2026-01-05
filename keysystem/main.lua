@@ -3,7 +3,7 @@ local function loadGameScript()
     local placeId = game.PlaceId
 
     if placeId == 17625359962 then -- Rivals
-        loadstring(game:HttpGet("https://example.com/script_for_game1.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Zeus-newui/Junkie-Development/refs/heads/main/keysystem/games/rivals.lua"))()
     else
         print("This script is not applicable for the current game.")
     end
