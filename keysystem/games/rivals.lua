@@ -48,7 +48,7 @@ end)
 
 -- Check if autoloadEnabled and silentloadEnabled are defined before using them
 local autoloadEnabled = true -- Set a default value or define it according to your needs
-local silentloadEnabled = true -- Set a default value or define it according to your needs
+local silentloadEnabled = false -- Set a default value or define it according to your needs
 
 -- Execute additional scripts
 getgenv().autoload = autoloadEnabled
