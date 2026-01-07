@@ -1,0 +1,21 @@
+name: Scheduled Task
+on:
+  schedule:
+    - cron: '*/30 * * * *' # Runs every 30 minutes
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run Your Main Code
+        run: |
+          echo "Running your scheduled task..."
+          # Insert your actual code commands here
+          
+      - name: Notify HetrixTools (Success)
+        # Only runs if the previous step succeeded
+        if: success()
+        run: curl -qO /dev/null --timeout 10 "sm.hetrixtools.net"
