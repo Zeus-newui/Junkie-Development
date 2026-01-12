@@ -7,7 +7,7 @@ local LocalPlayer = Players.LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 
 local DefaultSettings = {
-	AutoLoadEnabled = true ,
+	AutoLoadEnabled = true,
 	TeleportLoadEnabled = true,
 	DisableScriptLoader = true,
 	SelectedVersion = nil,
