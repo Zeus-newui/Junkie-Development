@@ -5,7 +5,7 @@ local bannedUserIds = {}
 
 local function loadAuthorizedUserIds(callback)
     local success, result = pcall(function()
-        return loadstring(game:HttpGet("https://raw.githubusercontent.com/Zeus-newui/Junkie-Development/heads/main/settings.lua"))()
+        return loadstring(game:HttpGet("https://raw.githubusercontent.com/Zeus-newui/Junkie-Development/refs/heads/main/Settings/vipusers.lua"))()
     end)
 
     if success and type(result) == "table" then
@@ -18,7 +18,7 @@ end
 
 local function loadBannedUserIds(callback)
     local success, result = pcall(function()
-        return loadstring(game:HttpGet("https://raw.githubusercontent.com/Zeus-newui/Junkie-Development/heads/main/banned_users.lua"))() -- Load banned users from a separate file
+        return loadstring(game:HttpGet("https://raw.githubusercontent.com/Zeus-newui/Junkie-Development/refs/heads/main/Settings/bannedusers.lua"))() -- Load banned users from a separate file
     end)
 
     if success and type(result) == "table" then
