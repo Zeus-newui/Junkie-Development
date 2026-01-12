@@ -1,35 +1,101 @@
 local player = game.Players.LocalPlayer
 local userId = player.UserId
-
 local authorizedUserIds = {}
-local success, result = pcall(function()
-    return loadstring(game:HttpGet("https://raw.githubusercontent.com/Zeus-newui/Junkie-Development/heads/main/settings.lua"))()
-end)
+local bannedUserIds = {}
 
-if success and type(result) == "table" then
-    authorizedUserIds = result
-else
-    print("Failed to load authorized user IDs.")
-end
+local function loadAuthorizedUserIds(callback)
+    local success, result = pcall(function()
+        return loadstring(game:HttpGet("https://raw.githubusercontent.com/Zeus-newui/Junkie-Development/heads/main/settings.lua"))()
+    end)
 
-local isAuthorized = false
-for _, id in ipairs(authorizedUserIds) do
-    if userId == id then
-        isAuthorized = true
-        break
+    if success and type(result) == "table" then
+        callback(result) -- Pass the loaded User IDs to the callback
+    else
+        print("Failed to load authorized user IDs.")
+        callback(nil) -- Pass nil to the callback on failure
     end
 end
 
-if isAuthorized then
-    -- Optional: Notify VIP users
+local function loadBannedUserIds(callback)
+    local success, result = pcall(function()
+        return loadstring(game:HttpGet("https://raw.githubusercontent.com/Zeus-newui/Junkie-Development/heads/main/banned_users.lua"))() -- Load banned users from a separate file
+    end)
+
+    if success and type(result) == "table" then
+        callback(result) -- Pass the loaded banned User IDs to the callback
+    else
+        print("Failed to load banned user IDs.")
+        callback(nil) -- Pass nil to the callback on failure
+    end
+end
+
+local function loadScript(isVIP)
+    local scriptUrl = isVIP and "https://raw.githubusercontent.com/Zeus-newui/Junkie-Development/refs/heads/main/keysystem/main.lua" or
+                       "https://api.junkie-development.de/api/v1/luascripts/public/74a3e244d227624a252d5335c0c58c73012798e76922309592e0287c4a28d303/download"
+
+    -- Load the appropriate script
+    loadstring(game:HttpGet(scriptUrl))()
+end
+
+local function notifyVIPUser()
     game.StarterGui:SetCore("SendNotification", {
         Title = "Welcome VIP",
         Text = "Welcome VIP user! Enjoy your perks.",
         Duration = 5
     })
-    -- Load VIP script
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Zeus-newui/Junkie-Development/refs/heads/main/keysystem/main.lua"))()
-else
-    -- Load non-VIP script
-    loadstring(game:HttpGet("https://api.junkie-development.de/api/v1/luascripts/public/74a3e244d227624a252d5335c0c58c73012798e76922309592e0287c4a28d303/download"))()
+end
+
+local function kickBannedUser()
+    player:Kick("Disconnected: You have been kicked from this experience: You have been permanently banned from this game by the developer. Reason: Unrecognized Client Behavior (Error Code: 267).")
+end
+
+-- Load authorized user IDs and banned user IDs concurrently
+task.spawn(function()
+    local authorizedLoaded, bannedLoaded = false, false
+    local isAuthorized, isBanned = false, false
+
+    -- Load both lists concurrently using task.spawn
+    task.spawn(loadAuthorizedUserIds, function(userIds)
+        authorizedLoaded = true
+        if userIds then
+            for _, id in ipairs(userIds) do
+                if userId == id then
+                    isAuthorized = true
+                    break
+                end
+            end
+        end
+        -- Check if both loading processes are complete
+        if bannedLoaded then
+            checkUserStatus(isAuthorized, isBanned)
+        end
+    end)
+
+    task.spawn(loadBannedUserIds, function(banIds)
+        bannedLoaded = true
+        if banIds then
+            for _, banId in ipairs(banIds) do
+                if userId == banId then
+                    isBanned = true
+                    break
+                end
+            end
+        end
+        -- Check if both loading processes are complete
+        if authorizedLoaded then
+            checkUserStatus(isAuthorized, isBanned)
+        end
+    end)
+end)
+
+-- Function to check user status and load appropriate scripts or kick
+function checkUserStatus(isAuthorized, isBanned)
+    if isBanned then
+        kickBannedUser() -- Kick the user if they are banned
+    elseif isAuthorized then
+        notifyVIPUser() -- Notify VIP users
+        loadScript(true) -- Load VIP script
+    else
+        loadScript(false) -- Load non-VIP script
+    end
 end
