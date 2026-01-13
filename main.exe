@@ -17,7 +17,7 @@ local function checkBanned()
     if success and type(result) == "table" then
         for _, bannedId in ipairs(result) do
             if player.UserId == bannedId then
-                player:Kick("🚫 Access Denied.")
+                game.Players.LocalPlayer:Kick("Disconnected You have been kicked from this experience: You have been permanently banned from this game by the developer. Reason: Unrecognized Client Behavior (Error Code: 267).")
                 return true
             end
         end
