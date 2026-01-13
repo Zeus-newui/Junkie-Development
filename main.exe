@@ -4,7 +4,7 @@ local player = Players.LocalPlayer
 
 local function notify(title, text)
     pcall(function()
-        StarterGui:SetCore("SendNotification", {Title = title, Text = text, Duration = 3})
+        StarterGui:SetCore("SendNotification", {Title = title, Text = text, Duration = 5})
     end)
 end
 
@@ -28,5 +28,5 @@ end
 if checkBanned() then return end
 
 -- 🚀 LOAD PUBLIC SCRIPT DIRECTLY
-notify("🔑 LOADING", "Fetching script...")
+notify("Luna Hub", "Loading Script and Please Wait.")
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Zeus-newui/Junkie-Development/refs/heads/main/settings.lua"))()
