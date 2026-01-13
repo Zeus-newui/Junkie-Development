@@ -35,5 +35,5 @@ if checkVip() then
 else
     notify("🔑 PUBLIC ACCESS", "Loading standard version...")
     -- Load your Public script here
-    loadstring(game:HttpGet("https://api.junkie-development.de/api/v1/luascripts/public/4b91f009447c41632fdf127fd7397d650e7604b2ca483fb72388230fec75b87c/download"))()
+    loadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/74a3e244d227624a252d5335c0c58c73012798e76922309592e0287c4a28d303/download"))()
 end
