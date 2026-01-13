@@ -41,7 +41,7 @@ local function loadGameScript()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Zeus-newui/Junkie-Development/refs/heads/main/keysystem/games/onther.lua"))()
         Notify("Plants vs Brainrot", "Script has been loaded successfully.")
     else
-        game.Players.LocalPlayer:Kick("Disconnected You have been kicked from this experience: You have been permanently banned from this game by the developer. Reason: Unrecognized Client Behavior (Error Code: 267).")
+        Notify("Error", "System Error: Unable to verify whitelist.")
     end
 end
 
