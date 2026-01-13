@@ -11,7 +11,5 @@ return {
 --]]
 
 return { 
-  -- No banned users at this time
+  7708627523,
 }
-
-
