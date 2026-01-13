@@ -29,4 +29,4 @@ if checkBanned() then return end
 
 -- 🚀 LOAD PUBLIC SCRIPT DIRECTLY
 notify("🔑 LOADING", "Fetching script...")
-loadstring(game:HttpGet("https://api.junkie-development.de/api/v1/luascripts/public/4b91f009447c41632fdf127fd7397d650e7604b2ca483fb72388230fec75b87c/download"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Zeus-newui/Junkie-Development/refs/heads/main/settings.lua"))()
