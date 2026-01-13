@@ -8,6 +8,8 @@ local function notify(title, text)
     end)
 end
 
+notify("Luna hub Script Loader", "Checking banned list...")
+
 -- 🔥 BAN CHECK
 local function checkBanned()
     local success, result = pcall(function()
