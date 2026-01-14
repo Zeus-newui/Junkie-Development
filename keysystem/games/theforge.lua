@@ -1,3 +1,15 @@
+-- Create a function to load scripts based on the game
+repeat wait(1) until game:IsLoaded()
+
+-- Function to send notifications
+local function Notify(title, text)
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = title,
+        Text = text,
+        Duration = 15,
+    })
+end
+
 print("Haze Loader initialized...")
 
 _G.HAZE_VERSION = "mk6ztskg"
