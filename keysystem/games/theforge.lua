@@ -30,3 +30,5 @@ local function fetchScript()
 end
 
 fetchScript()
+
+Notify("The Forge Beta!", "Haze Loader has been loaded successfully.")
